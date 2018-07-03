@@ -164,7 +164,7 @@
                                             <outlet property="replyButton" destination="ixZ-M7-i5r" id="NN7-3x-Ya7"/>
                                             <outlet property="replyLabel" destination="8Mx-Oc-HlV" id="sG8-k6-uZq"/>
                                             <outlet property="retweetButton" destination="mk4-C9-jWk" id="lcE-hy-PYK"/>
-                                            <outlet property="retweetLabel" destination="OOW-bM-hk7" id="RMQ-4g-Qpc"/>
+                                            <outlet property="retweetLabel" destination="TgN-40-q9y" id="nst-An-3Jz"/>
                                             <outlet property="tweetLabel" destination="fNl-JU-G62" id="yNw-eS-nzX"/>
                                             <outlet property="userHandleLabel" destination="NmH-sA-pcT" id="eif-UL-cHl"/>
                                             <outlet property="usernameLabel" destination="MFL-o2-ZVE" id="EkB-mh-whF"/>
@@ -177,6 +177,11 @@
                         <viewLayoutGuide key="safeArea" id="ugE-Ul-H9I"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="e6R-4N-UPc">
+                            <connections>
+                                <action selector="logoutIsTapped:" destination="Lbl-k5-U4i" id="LAs-4J-mAm"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="edit-icon" id="54e-u2-9fV">
                             <connections>
                                 <segue destination="Lvb-KG-hBj" kind="presentation" id="fzy-eB-EUx"/>
@@ -184,6 +189,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="logoutButton" destination="e6R-4N-UPc" id="BOH-PG-0hC"/>
                         <outlet property="tableview" destination="IS3-6T-bpS" id="K2Y-Ud-R1B"/>
                     </connections>
                 </viewController>
