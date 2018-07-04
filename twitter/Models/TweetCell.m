@@ -41,6 +41,13 @@
     self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
     
+    [self.usernameLabel sizeToFit];
+    [self.userHandleLabel sizeToFit];
+    [self.dateLabel sizeToFit];
+//    [self.tweetLabel sizeToFit];
+//    [self.retweetLabel sizeToFit];
+//    [self.favoriteLabel sizeToFit];
+    
     self.profilePic.image = nil;
     if(self.tweet.proPicURL != nil){
     [self.profilePic setImageWithURL:self.tweet.proPicURL];
