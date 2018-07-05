@@ -54,8 +54,8 @@
     self.profilePic.image = nil;
     if(self.tweet.proPicURL != nil){
     [self.profilePic setImageWithURL:self.tweet.proPicURL];
-        self.profilePic.layer.masksToBounds = YES;
-        self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width/2;
+//        self.profilePic.layer.masksToBounds = YES;
+//        self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width/2;
      
         
     if(self.tweet.favorited){
