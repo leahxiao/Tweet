@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableview.rowHeight = 150;
+    self.tableview.estimatedRowHeight = 150;
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableview insertSubview:refreshControl atIndex:0];
@@ -113,6 +115,8 @@
     NSMutableArray *temp = [NSMutableArray arrayWithArray:self.tweets];
     [temp addObject:tweet];
     [self.tableview reloadData];
+    UIRefreshControl *refCont = [[UIRefreshControl alloc] init];
+    [self beginRefresh:(refCont)];
 }
 - (IBAction)logoutIsTapped:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -128,12 +132,19 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableview indexPathForCell:tappedCell];
-    NSDictionary *tweet = self.tweets[indexPath.row];
-    
-    DetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.tweet = tweet;
+   // if ([segue.identifier isEqualToString: @"settingsTransition"]){
+    if([segue.destinationViewController isKindOfClass:[DetailsViewController class] ]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableview indexPathForCell:tappedCell];
+        Tweet *tweet = self.tweets[indexPath.row];
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.tweet = tweet;
+    }
+    else{
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    };
 }
 
 @end

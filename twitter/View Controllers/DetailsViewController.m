@@ -22,10 +22,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
 //@property (nonatomic, strong) Tweet *tweet;
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
-@property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
-@property (weak, nonatomic) IBOutlet UILabel *favoriteLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *favoriteLabel;
 
 @end
 
@@ -37,8 +37,12 @@
     self.handleLabel.text = self.tweet.user.screenName;
     self.tweetLabel.text = self.tweet.text;
     
-    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
-    self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+//    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+//    self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+    [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
+    //    self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+    [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
+    
     
     self.proPicImageView.image = nil;
     if(self.tweet.proPicURL != nil){
@@ -83,8 +87,8 @@
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
                     UIImage *image = [UIImage imageNamed:@"favor-icon"];
                     [self.favoriteButton setImage:image forState:UIControlStateNormal];
-                self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
-                
+//                self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
             }
         }];
     }
@@ -101,8 +105,8 @@
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
                 UIImage *image = [UIImage imageNamed:@"favor-icon-red"];
                 [self.favoriteButton setImage:image forState:UIControlStateNormal];
-                self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
-                
+//                self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+                    [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
             }
         }];
         
@@ -126,7 +130,8 @@
                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
                 UIImage *image = [UIImage imageNamed:@"retweet-icon"];
                 [self.retweetButton setImage:image forState:UIControlStateNormal];
-                 self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+//                 self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+                [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
             }
         }];
     }
@@ -144,7 +149,8 @@
                 NSLog(@"Successfully ret the following Tweet: %@", tweet.text);
                 UIImage *image = [UIImage imageNamed:@"retweet-icon-green"];
                 [self.retweetButton setImage:image forState:UIControlStateNormal];
-                self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+//                self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+                [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
             }
         }];
   }

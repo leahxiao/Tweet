@@ -38,12 +38,15 @@
     self.userHandleLabel.text = self.tweet.user.screenName;
     self.dateLabel.text = self.tweet.createdAtString;
     self.tweetLabel.text = self.tweet.text;
-    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
-    self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+//    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
+    [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
+//    self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
+    [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
     
-    [self.usernameLabel sizeToFit];
-    [self.userHandleLabel sizeToFit];  //SIZING STUFF
-    [self.dateLabel sizeToFit];
+    
+//    [self.usernameLabel sizeToFit];
+//    [self.userHandleLabel sizeToFit];  //SIZING STUFF
+//    [self.dateLabel sizeToFit];
 //    [self.tweetLabel sizeToFit];
 //    [self.retweetLabel sizeToFit];
 //    [self.favoriteLabel sizeToFit];
@@ -51,6 +54,8 @@
     self.profilePic.image = nil;
     if(self.tweet.proPicURL != nil){
     [self.profilePic setImageWithURL:self.tweet.proPicURL];
+        self.profilePic.layer.masksToBounds = YES;
+        self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width/2;
      
         
     if(self.tweet.favorited){
@@ -92,6 +97,9 @@
             }
             else{
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+                UIImage *image = [UIImage imageNamed:@"favor-icon"];
+                [self.favoriteButton setImage:image forState:UIControlStateNormal];
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
             }
         }];
     }
@@ -107,6 +115,9 @@
             }
             else{
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+                UIImage *image = [UIImage imageNamed:@"favor-icon-red"];
+                [self.favoriteButton setImage:image forState:UIControlStateNormal];
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
             }
         }];
     }
@@ -126,6 +137,9 @@
             }
             else{
                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+                UIImage *image = [UIImage imageNamed:@"retweet-icon"];
+                [self.retweetButton setImage:image forState:UIControlStateNormal];
+                [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
             }
         }];
     }
@@ -141,6 +155,9 @@
             }
             else{
                 NSLog(@"Successfully ret the following Tweet: %@", tweet.text);
+                UIImage *image = [UIImage imageNamed:@"retweet-icon-green"];
+                [self.retweetButton setImage:image forState:UIControlStateNormal];
+                 [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
             }
         }];
     }
