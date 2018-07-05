@@ -121,9 +121,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVH-yY-qWi">
-                                                    <rect key="frame" x="0.0" y="79" width="375" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVH-yY-qWi">
+                                                    <rect key="frame" x="0.0" y="77.5" width="375" height="71.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVF-6m-JLt">
                                                             <rect key="frame" x="129.5" y="20" width="96" height="30"/>
@@ -158,6 +157,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Xba-4X-efC" secondAttribute="trailing" constant="15" id="4L2-0v-yul"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LVH-yY-qWi" secondAttribute="bottom" constant="0.5" id="52k-oe-6ue"/>
                                                 <constraint firstItem="ywM-2j-izs" firstAttribute="top" secondItem="wAA-no-9kz" secondAttribute="topMargin" constant="15" id="58e-aI-Spy"/>
                                                 <constraint firstItem="zgk-GE-ONC" firstAttribute="top" secondItem="wAA-no-9kz" secondAttribute="topMargin" constant="15" id="7f6-Eh-QV0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="zgk-GE-ONC" secondAttribute="trailing" constant="15" id="D8B-p5-7Wh"/>
@@ -171,6 +171,7 @@
                                                 <constraint firstItem="4c2-KS-9FT" firstAttribute="leading" secondItem="wAA-no-9kz" secondAttribute="leading" constant="15" id="rp4-OJ-wIg"/>
                                                 <constraint firstItem="Xba-4X-efC" firstAttribute="leading" secondItem="4c2-KS-9FT" secondAttribute="trailing" constant="10" id="uSk-lU-NEP"/>
                                                 <constraint firstItem="4c2-KS-9FT" firstAttribute="top" secondItem="wAA-no-9kz" secondAttribute="top" constant="15" id="vmN-Qc-dOU"/>
+                                                <constraint firstItem="LVH-yY-qWi" firstAttribute="top" secondItem="Xba-4X-efC" secondAttribute="bottom" constant="5" id="zOG-RM-X1Q"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
