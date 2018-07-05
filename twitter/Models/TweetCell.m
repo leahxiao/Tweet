@@ -42,7 +42,7 @@
     self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
     
     [self.usernameLabel sizeToFit];
-    [self.userHandleLabel sizeToFit];
+    [self.userHandleLabel sizeToFit];  //SIZING STUFF
     [self.dateLabel sizeToFit];
 //    [self.tweetLabel sizeToFit];
 //    [self.retweetLabel sizeToFit];
