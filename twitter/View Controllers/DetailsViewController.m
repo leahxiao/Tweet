@@ -48,6 +48,8 @@
     if(self.tweet.proPicURL != nil){
         [self.proPicImageView setImageWithURL:self.tweet.proPicURL];
     }
+    self.proPicImageView.layer.masksToBounds = YES;
+    self.proPicImageView.layer.cornerRadius = self.proPicImageView.frame.size.width / 2;
         
         if(self.tweet.favorited){
             UIImage *image = [UIImage imageNamed:@"favor-icon-red"];

@@ -43,20 +43,18 @@
     [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
 //    self.favoriteLabel.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
     [self.favoriteButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
-    
-    
-//    [self.usernameLabel sizeToFit];
-//    [self.userHandleLabel sizeToFit];  //SIZING STUFF
-//    [self.dateLabel sizeToFit];
-//    [self.tweetLabel sizeToFit];
-//    [self.retweetLabel sizeToFit];
-//    [self.favoriteLabel sizeToFit];
+ 
     
     self.profilePic.image = nil;
     if(self.tweet.proPicURL != nil){
     [self.profilePic setImageWithURL:self.tweet.proPicURL];
 //        self.profilePic.layer.masksToBounds = YES;
 //        self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width/2;
+//        self.profilePic.image = nil;
+//        if (self.tweet.profilePicURL != nil) {
+//            [self.profilePic setImageWithURL:self.tweet.profilePicURL];
+            self.profilePic.layer.masksToBounds = YES;
+            self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2;
      
         
     if(self.tweet.favorited){

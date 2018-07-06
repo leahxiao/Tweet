@@ -7,12 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIImageView+AFNetworking.h"
 
 @interface User : NSObject
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *screenName;
+@property (strong, nonatomic) NSNumber *numFollower;
+@property (strong, nonatomic) NSNumber *numFollowing;
+@property (strong, nonatomic) NSNumber *numTweets;
+@property (strong,nonatomic) NSURL *proPicURL;
+@property (strong,nonatomic) NSURL *backgroundURL;
 
+
+
+//UIImageView *bannerImageView;
+//UIImageView *proPicImageView;
+//UILabel *UsernameLabel;
+//UILabel *handleLabel;
+//UILabel *numTweetsLabel;
+//UILabel *numFollowingLabel;
+//UILabel *numFollowersLabel;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

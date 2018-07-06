@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "DetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
+#import "ProfileViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 @property NSArray *tweets;
@@ -136,6 +137,9 @@
         Tweet *tweet = self.tweets[indexPath.row];
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.tweet = tweet;
+    }
+    else if([segue.destinationViewController isKindOfClass:[ProfileViewController class] ]){
+        NSLog(@"heh");
     }
     else{
         UINavigationController *navigationController = [segue destinationViewController];
