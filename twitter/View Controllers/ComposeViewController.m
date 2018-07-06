@@ -10,14 +10,17 @@
 #import "Tweet.h"
 #import "APIManager.h"
 
-@interface ComposeViewController () <ComposeViewControllerDelegate>
+@interface ComposeViewController () <ComposeViewControllerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *tweetText;
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (strong, nonatomic) NSString *tweetContent;
 @end
 
 @implementation ComposeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tweetText.delegate = self;
     // Do any additional setup after loading the view.
 }
 
@@ -70,6 +73,29 @@
 */
 - (void)didTweet:(Tweet *)tweet {
 }
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if (textView.text.length < 141) {
+        self.countLabel.text = [NSString stringWithFormat:@"%lu",140 - textView.text.length];
+        self.tweetContent = textView.text;
+    } else {
+        textView.text = self.tweetContent;
+    }
+}
+
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//
+//    int characterLimit = 140;
+//
+//    // Construct what the new text would be if we allowed the user's latest edit
+//    NSString *newText = [self.tweetText.text stringByReplacingCharactersInRange:range withString:text];
+//
+//    // TODO: Update Character Count Label
+//    //self.countLabel.text = [NSString stringWithFormat:@"%@",140 - tweetText.text.length]; ;
+//
+//    // The new text should be allowed? True/False
+//    return newText.length < characterLimit;
+//}
 
 @end
 
