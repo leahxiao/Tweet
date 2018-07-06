@@ -36,7 +36,8 @@
 -(void) refreshData{
     self.usernameLabel.text = self.tweet.user.name;
     self.userHandleLabel.text = self.tweet.user.screenName;
-    self.dateLabel.text = self.tweet.createdAtString;
+  //  self.dateLabel.text = self.tweet.createdAtString;
+    self.dateLabel.text = self.tweet.creationDate.shortTimeAgoSinceNow;
     self.tweetLabel.text = self.tweet.text;
 //    self.retweetLabel.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     [self.retweetButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.retweetCount] forState:UIControlStateNormal];
