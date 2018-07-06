@@ -14,11 +14,15 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "DetailsViewController.h"
+#import "InfiniteScrollActivityView.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 @property NSArray *tweets;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
+@property (nonatomic) Boolean isMoreDataLoading;
+@property InfiniteScrollActivityView* loadingMoreView;
+@property int count;
 
 @end
 
@@ -27,32 +31,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableview.delegate = self;
+    self.tableview.dataSource = self;
+    
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     self.tableview.estimatedRowHeight = 150;
+    
+    self.count = 20;
+    CGRect frame = CGRectMake(0, self.tableview.contentSize.height, self.tableview.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    self.loadingMoreView.hidden = true;
+    [self.tableview addSubview:self.loadingMoreView];
+    
+    UIEdgeInsets insets = self.tableview.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableview.contentInset = insets;
+    
+    self.isMoreDataLoading = false;
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableview insertSubview:refreshControl atIndex:0];
 
-    self.tableview.delegate = self;
-    self.tableview.dataSource = self;
-    // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+        // completion part
         if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-//            for (Tweet *tweet in tweets) {
-//                NSString *text = tweet.text;
-//                NSLog(@"%@", text);
-//            }
             self.tweets = tweets;
             [self.tableview reloadData];
             
-        }
-        else {
+        } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
-    }];
+    }count:self.count];
+
 }
 
+    
+    
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -67,38 +82,20 @@
                                                           delegate:nil
                                                      delegateQueue:[NSOperationQueue mainQueue]];
     session.configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-//                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//
-//                                                // ... Use the new data to update the data source ...
-//                                                //is this a todo?
-//                                                // Reload the tableView now that there is new data
-//                                                [self.tableview reloadData];
-//
-//                                                // Tell the refreshControl to stop spinning
-//                                                [refreshControl endRefreshing];
-//
-//                                           }];
-//
-//    [task resume];
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            //            for (Tweet *tweet in tweets) {
-            //                NSString *text = tweet.text;
-            //                NSLog(@"%@", text);
-            //            }
             self.tweets = tweets;
             [self.tableview reloadData];
-             [refreshControl endRefreshing];
             
-        }
-        else {
+        } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
-    }];
+    }count:self.count];
+    [self.tableview reloadData];
+    [refreshControl endRefreshing];
 }
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tweetCell" forIndexPath:indexPath];
@@ -146,5 +143,38 @@
         composeController.delegate = self;
     };
 }
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(!self.isMoreDataLoading){
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableview.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableview.bounds.size.height;
+
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableview.isDragging) {
+             self.count += 20;
+            self.isMoreDataLoading = true;
+            CGRect frame = CGRectMake(0, self.tableview.contentSize.height, self.tableview.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+            self.loadingMoreView.frame = frame;
+            [self.loadingMoreView startAnimating];
+            [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+                if (tweets) {
+                    NSLog(@"😎😎😎 Successfully loaded home timeline");
+                    self.isMoreDataLoading = NO;
+                    self.tweets = tweets;
+                    [self.tableview reloadData];
+                    [self.loadingMoreView stopAnimating];
+                    
+                } else {
+                    NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+                }
+            }count:self.count];
+        }
+    }
+}
+
+
+
 
 @end
